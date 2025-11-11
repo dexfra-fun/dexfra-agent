@@ -20,8 +20,9 @@ dexfra-agent/
 
 ### Core Package
 
-**[@dexfra/agent-kit](./packages/core)** - Core SDK with built-in Dexfra functionality
+**[@dexfra/agent-kit](./packages/core)** - Core SDK with built-in Dexfra & x402 functionality
 
+- **Built-in x402 Payment Protocol** - Automatic micropayment handling for API calls
 - **Built-in Dexfra API calls** with automatic x402 payment
 - **API discovery and search** from Dexfra marketplace
 - **Balance management** for SOL and SPL tokens
@@ -43,10 +44,9 @@ dexfra-agent/
 
 The following packages are planned for future releases:
 
-- **@dexfra/plugin-x402** - Advanced x402 payment features
-- **@dexfra/plugin-llm** - LLM payment via x402
+- **@dexfra/plugin-llm** - LLM payment via x402 (OpenAI, Anthropic, OpenRouter)
 - **@dexfra/adapter-langchain** - LangChain integration
-- **@dexfra/adapter-mcp** - Model Context Protocol
+- **@dexfra/adapter-mcp** - Model Context Protocol support
 
 ## 🚀 Quick Start
 
@@ -157,11 +157,12 @@ pnpm publish-packages
 
 ## 📚 Key Features
 
-### 1. Built-in Dexfra Functionality
+### 1. Built-in Dexfra & x402 Functionality
 
-All core Dexfra features are built-in, no plugins required:
+All core features are built-in, no plugins required:
 
-- **API Calls**: Call any Dexfra API with automatic x402 payment
+- **x402 Payment Protocol**: Automatic micropayment handling with 402 Payment Required flow
+- **Dexfra API Calls**: Call any Dexfra API with automatic x402 payment
 - **API Discovery**: Search and discover APIs from the marketplace
 - **Balance Management**: Check SOL and SPL token balances
 - **Type-safe**: Full TypeScript support with type inference

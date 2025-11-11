@@ -4,13 +4,14 @@ Core SDK for building AI agents on Dexfra with built-in x402 micropayment suppor
 
 ## Features
 
+- 💳 **Built-in x402 Payment Protocol**: Full x402 implementation with automatic 402 Payment Required handling
 - 🤖 **Built-in Dexfra API Access**: Call any Dexfra API with automatic x402 payments
-- 💰 **Automatic Payments**: Transparent x402 micropayment handling
+- 💰 **Automatic Micropayments**: Transparent payment processing for API calls
 - 🔍 **API Discovery**: Search and discover APIs from Dexfra marketplace
 - 💼 **Balance Management**: Check SOL and SPL token balances
 - 🎯 **AI-Optimized Actions**: Rich metadata with similes and examples for better AI understanding
 - 🔧 **Solana-Only**: Simplified focus on Solana blockchain
-- 📦 **No Plugins Required**: All core functionality built-in
+- 📦 **No Plugins Required**: All core functionality (including x402) built-in
 
 ## Installation
 
@@ -36,7 +37,8 @@ const agent = new DexfraAgentKit(wallet, {
   maxAmount: 1.0, // Max 1 USDC per payment
 });
 
-// Call Dexfra API with automatic payment
+// Call Dexfra API with automatic x402 payment
+// The SDK automatically handles 402 Payment Required responses
 const response = await agent.callAPI(
   "https://api.dexfra.fun/v1/token/price",
   {
@@ -62,7 +64,14 @@ console.log("SOL Balance:", balance.formatted);
 
 ### `callAPI(url, options?)`
 
-Call any Dexfra API endpoint with automatic x402 payment.
+Call any Dexfra API endpoint with automatic x402 payment handling.
+
+The SDK automatically:
+1. Makes the initial request
+2. Handles 402 Payment Required responses
+3. Creates and signs x402 payment
+4. Retries the request with payment header
+5. Processes settlement response
 
 ```typescript
 // GET request
@@ -157,9 +166,9 @@ interface DexfraConfig {
   rpcUrl?: string;                    // Solana RPC URL
   network?: "devnet" | "mainnet-beta"; // Network to use
   
-  // x402 Payment settings
+  // x402 Payment settings (built-in)
   facilitatorUrl?: string;            // x402 facilitator URL
-  maxAmount?: number;                 // Max USDC per payment
+  maxAmount?: number;                 // Max USDC per payment (safety limit)
   
   // API Discovery
   marketplaceUrl?: string;            // Dexfra marketplace URL
@@ -239,21 +248,33 @@ try {
 For advanced use cases, you can use the underlying tools directly:
 
 ```typescript
-import { 
-  dexfraFetch, 
-  discoverAPIs, 
-  getBalance 
+import {
+  dexfraFetch,
+  dexfraGet,
+  dexfraPost,
+  discoverAPIs,
+  getBalance
 } from "@dexfra/agent-kit";
 
-// Manual fetch with x402 payment
+// Manual fetch with x402 payment (full control)
 const response = await dexfraFetch(url, {
   wallet,
   connection,
   network: "devnet",
-  facilitatorUrl: "https://facilitator.payai.network"
+  facilitatorUrl: "https://facilitator.payai.network",
+  maxAmount: 1.0,
+  onPaymentRequired: (amount) => console.log("Payment required:", amount),
+  onPaymentSuccess: (txId) => console.log("Payment successful:", txId),
+  onPaymentError: (error) => console.error("Payment failed:", error)
 });
 
-// Direct API discovery
+// GET request with x402
+const getResponse = await dexfraGet(url, config, { key: "value" });
+
+// POST request with x402
+const postResponse = await dexfraPost(url, config, { data: "..." });
+
+// Direct API discovery (no payment needed)
 const apis = await discoverAPIs(
   { category: "Token Data" },
   "https://dexfra.fun"

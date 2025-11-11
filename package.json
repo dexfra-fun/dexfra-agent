@@ -1,0 +1,53 @@
+{
+  "name": "@dexfra/agent-monorepo",
+  "version": "1.0.0",
+  "description": "AI Agent SDK for Dexfra - Solana x402 payment protocol",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "test"
+  ],
+  "scripts": {
+    "clean": "turbo run clean",
+    "build": "turbo run build",
+    "build:core": "turbo run build --filter=@dexfra/agent-kit",
+    "build:plugin-dexfra": "turbo run build --filter=@dexfra/plugin-dexfra",
+    "build:plugin-x402": "turbo run build --filter=@dexfra/plugin-x402",
+    "build:plugin-llm": "turbo run build --filter=@dexfra/plugin-llm",
+    "build:adapter-vercel": "turbo run build --filter=@dexfra/adapter-vercel",
+    "build:adapter-langchain": "turbo run build --filter=@dexfra/adapter-langchain",
+    "build:adapter-mcp": "turbo run build --filter=@dexfra/adapter-mcp",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "typecheck": "turbo run typecheck",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "publish-packages": "turbo run build && changeset publish"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "keywords": [
+    "dexfra",
+    "solana",
+    "x402",
+    "ai-agent",
+    "payment",
+    "web3"
+  ],
+  "author": "Dexfra Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.12",
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.1",
+    "turbo": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

@@ -1,0 +1,65 @@
+{
+  "name": "@dexfra/adapter-vercel",
+  "version": "1.0.0",
+  "description": "Vercel AI SDK adapter for Dexfra Agent Kit",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --dts --clean --format cjs,esm --out-dir dist",
+    "dev": "tsup src/index.ts --dts --format cjs,esm --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "dependencies": {
+    "@dexfra/agent-kit": "workspace:*"
+  },
+  "peerDependencies": {
+    "@dexfra/agent-kit": "^1.0.0",
+    "ai": "^5.0.0"
+  },
+  "devDependencies": {
+    "ai": "^5.0.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "dexfra",
+    "vercel-ai",
+    "ai-sdk",
+    "solana",
+    "x402",
+    "payment",
+    "adapter"
+  ],
+  "author": "Dexfra Team",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dexfra/agent-sdk.git",
+    "directory": "packages/adapter-vercel"
+  }
+}

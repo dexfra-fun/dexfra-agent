@@ -1,0 +1,24 @@
+{
+  "name": "basic-vercel-ai-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Basic example of using Dexfra Agent Kit with Vercel AI SDK",
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts",
+    "dev": "tsx watch index.ts"
+  },
+  "dependencies": {
+    "@dexfra/agent-kit": "workspace:*",
+    "@dexfra/adapter-vercel": "workspace:*",
+    "@solana/web3.js": "^1.95.0",
+    "ai": "^5.0.0",
+    "@ai-sdk/openai": "^2.0.0",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
